@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="insert-users" author="dev">
+        <insert tableName="user" schemaName="notification_service">
+            <column name="id" value="1"/>
+            <column name="full_name" value="Иванов Иван Иванович"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-notification-periods" author="dev">
+        <insert tableName="notification_period" schemaName="notification_service">
+            <column name="id" value="1"/>
+            <column name="user_id" value="1"/>
+            <column name="day_of_week_start" value="WEDNESDAY"/>
+            <column name="time_start" value="08:00:00"/>
+            <column name="time_end" value="13:00:00"/>
+        </insert>
+
+        <insert tableName="notification_period" schemaName="notification_service">
+            <column name="id" value="2"/>
+            <column name="user_id" value="1"/>
+            <column name="day_of_week_start" value="THURSDAY"/>
+            <column name="time_start" value="08:00:00"/>
+            <column name="time_end" value="13:00:00"/>
+        </insert>
+
+        <insert tableName="notification_period" schemaName="notification_service">
+            <column name="id" value="3"/>
+            <column name="user_id" value="1"/>
+            <column name="day_of_week_start" value="FRIDAY"/>
+            <column name="time_start" value="08:00:00"/>
+            <column name="time_end" value="13:00:00"/>
+        </insert>
+
+        <insert tableName="notification_period" schemaName="notification_service">
+            <column name="id" value="4"/>
+            <column name="user_id" value="1"/>
+            <column name="day_of_week_start" value="SATURDAY"/>
+            <column name="time_start" value="09:30:00"/>
+            <column name="time_end" value="10:30:00"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

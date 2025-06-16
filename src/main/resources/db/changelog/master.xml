@@ -1,0 +1,17 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd"
+        objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+
+    <property name="schemaName" value="notification_service" context="global"/>
+
+    <changeSet author="system" id="set-schema">
+        <sql>SET search_path TO notification_service;</sql>
+    </changeSet>
+
+    <include file="001-init-schema.xml" relativeToChangelogFile="true"/>
+    <include file="002-seed-data.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>

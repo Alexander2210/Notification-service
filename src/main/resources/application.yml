@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://notification-postgres:5432/notificationdb?currentSchema=notification_service&searchpath=notification_service
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 60000
+      initialization-fail-timeout: 0
+      connection-init-sql: SELECT 1
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: notification_service
+
+  liquibase:
+    change-log: classpath:db/changelog/master.xml
+    enabled: true
+    default-schema: notification_service
+    liquibase-schema: notification_service
+    parameters:
+      schemaName: notification_service
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    url: ${spring.datasource.url}
+
+logging:
+  level:
+    org.hibernate: DEBUG
+    org.springframework.jdbc: TRACE
+    com.zaxxer.hikari: DEBUG
+    liquibase: TRACE
