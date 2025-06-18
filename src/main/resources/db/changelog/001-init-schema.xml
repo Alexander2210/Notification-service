@@ -41,4 +41,20 @@
                                  onDelete="CASCADE"/>
     </changeSet>
 
+    <changeSet id="create-table-event" author="dev">
+        <createTable tableName="event" schemaName="notification_service">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="message" type="TEXT"/>
+            <column name="occurred_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-event-sequence" author="dev">
+        <sql>
+            CREATE SEQUENCE IF NOT EXISTS notification_service.event_id_seq;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

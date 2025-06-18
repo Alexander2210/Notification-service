@@ -18,7 +18,7 @@
             <column name="user_id" value="1"/>
             <column name="day_of_week_start" value="WEDNESDAY"/>
             <column name="time_start" value="08:00:00"/>
-            <column name="time_end" value="13:00:00"/>
+            <column name="time_end" value="18:00:00"/>
         </insert>
 
         <insert tableName="notification_period" schemaName="notification_service">
