@@ -2,6 +2,8 @@ package com.example.notificationservice.scheduler;
 
 import com.example.notificationservice.dto.EventDTO;
 import com.example.notificationservice.entity.UserEntity;
+import com.example.notificationservice.handler.NotificationWebSocketHandler;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +15,12 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Component
+@RequiredArgsConstructor
 @Slf4j
 public class NotificationScheduler {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+    private final NotificationWebSocketHandler webSocketHandler;
 
     public void scheduleNotification(UserEntity user, EventDTO event, LocalDateTime sendAt) {
         long delaySeconds = Duration.between(LocalDateTime.now(), sendAt).getSeconds();
@@ -30,5 +35,6 @@ public class NotificationScheduler {
                 user.getFullName(),
                 event.getMessage());
         log.info(logMessage);
+        webSocketHandler.sendNotification(logMessage);
     }
 }

@@ -28,9 +28,9 @@ spring:
     password: ${spring.datasource.password}
     url: ${spring.datasource.url}
 
-logging:
-  level:
-    org.hibernate: DEBUG
-    org.springframework.jdbc: TRACE
-    com.zaxxer.hikari: DEBUG
-    liquibase: TRACE
+#logging:
+#  level:
+#    org.hibernate: DEBUG
+#    org.springframework.jdbc: TRACE
+#    com.zaxxer.hikari: DEBUG
+#    liquibase: TRACE

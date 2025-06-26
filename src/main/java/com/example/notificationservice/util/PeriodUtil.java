@@ -4,6 +4,7 @@ import com.example.notificationservice.dto.NotificationPeriodDTO;
 import com.example.notificationservice.entity.NotificationPeriodEntity;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.List;
@@ -12,28 +13,33 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PeriodUtil {
+    private PeriodUtil() {
+        throw new UnsupportedOperationException("Utility class");
+    }
 
     public static Optional<LocalDateTime> findNextValidTime(List<NotificationPeriodEntity> periods, LocalDateTime from) {
         LocalDateTime candidate = null;
 
         for (int daysAhead = 0; daysAhead < 7; daysAhead++) {
-            LocalDateTime checkDate = from.plusDays(daysAhead);
-
-            for (NotificationPeriodEntity period : periods) {
-                if (period.getDayOfWeekStart() == checkDate.getDayOfWeek()) {
-                    LocalDateTime start = LocalDateTime.of(checkDate.toLocalDate(), period.getTimeStart());
-                    LocalDateTime end = LocalDateTime.of(checkDate.toLocalDate(), period.getTimeEnd());
-
-                    if (!from.isAfter(end)) {
-                        if (candidate == null || start.isBefore(candidate)) {
-                            candidate = start;
-                        }
-                    }
-                }
-            }
+            LocalDate checkDate = from.toLocalDate().plusDays(daysAhead);
+            candidate = findClosestCandidate(periods, checkDate, candidate, from);
         }
 
         return Optional.ofNullable(candidate);
+    }
+
+    private static LocalDateTime findClosestCandidate(List<NotificationPeriodEntity> periods, LocalDate checkDate, LocalDateTime candidate, LocalDateTime from) {
+        for (NotificationPeriodEntity period : periods) {
+            if (period.getDayOfWeekStart().getValue() == checkDate.getDayOfWeek().getValue()) {
+                LocalDateTime start = LocalDateTime.of(checkDate, period.getTimeStart());
+                LocalDateTime end = LocalDateTime.of(checkDate, period.getTimeEnd());
+
+                if (!from.isAfter(end) && (candidate == null || start.isBefore(candidate))) {
+                    candidate = start;
+                }
+            }
+        }
+        return candidate;
     }
 
     public static String format(List<NotificationPeriodDTO> periods) {
